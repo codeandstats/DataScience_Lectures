@@ -25,7 +25,7 @@ of neural networks</a>.
 ## Course components
 
 All lecture materials can be found on this
-<a href="https://github.com/markusloecher/DataScience2021/" target="_blank">github
+<a href="https://github.com/codeandstats/DataScience_Lectures" target="_blank">github
 page</a> .
 
 
