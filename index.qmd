@@ -1,0 +1,93 @@
+# Preface {.unnumbered}
+
+Data Science course taught by Professor Markus Loecher (HWR Berlin). 
+
+## About this course
+
+Welcome to most important course you’ll ever take: **Data Science** 🙄
+Here is my overview of the structure and contents of this unique blend
+of stats/coding/machine learning: The first few weeks will focus on
+<i>statistical thinking</i>, and I will lean heavily on the book
+<a href="https://greenteapress.com/wp/think-stats-2e/" target="_blank">Think
+Stats</a> (as well as the DataCamp
+<a href="https://www.datacamp.com/courses/statistical-thinking-in-python-part-1"
+        target="_blank">Statistical Thinking in Python</a>). From week 4
+on, we will shift attention to basic concepts from machine learning and
+rely more on the
+<a href="https://www-bcf.usc.edu/~gareth/ISL/" target="_blank">ISLR
+book</a> and the
+<a href="https://www.datacamp.com/courses/supervised-learning-with-scikit-learn"
+        target="_blank">sklearn</a> library. If time permits, I am
+planning to cover the
+<a href="http://makeyourownneuralnetwork.blogspot.com/" target="_blank">basics
+of neural networks</a>.
+
+## Course components
+
+All lecture materials can be found on this
+<a href="https://github.com/markusloecher/DataScience2021/" target="_blank">github
+page</a> .
+
+
+There will be a weekly homework assignment which is not graded. I
+strongly recommend you to give your very best shot. I will provide
+solutions and if you upload your homework, I will try to look over
+it.<br></span>
+
+## Grading
+
+There will be a final exam at the end of the semester which counts
+**70%** towards your grade. Due to the Corona uncertainties, I cannot
+specify yet whether it will be taken online or at HWR. The remaining
+**30%** of the total points are earned via the final project, which will
+be tackled in groups of 4-5 and is typically a
+<a href="https://www.kaggle.com/">kaggle </a>competition or a similar
+data analysis task. The deliveries are a report and a final
+presentation. We will start on this project in the middle of the
+semester.
+
+
+DataCamp
+------
+[DataCamp](https://app.datacamp.com/) is a pretty good resource for students to learn coding and data analysis skills.
+By completing the DataCamp courses listed below we would be able to significantly shorten 
+the time we spend on basics and open up more space for data science concepts.
+
+* [Introduction to Python](https://app.datacamp.com/learn/courses/intro-to-python-for-data-science)
+* [Intermediate Python](https://app.datacamp.com/learn/courses/intermediate-python)
+
+If you have extra time:
+* [Data Manipulation with pandas](https://app.datacamp.com/learn/courses/data-manipulation-with-pandas)
+
+And much more advanced and totally optional:
+
+* [Python Data Science Toolbox (Part 1)](https://www.datacamp.com/courses/python-data-science-toolbox-part-1)
+* [Python Data Science Toolbox (Part 2)](https://www.datacamp.com/courses/python-data-science-toolbox-part-2)
+* [Statistical Thinking in Python (Part 1)](https://www.datacamp.com/courses/statistical-thinking-in-python-part-1)
+* [Statistical Thinking in Python (Part 2)](https://www.datacamp.com/courses/statistical-thinking-in-python-part-2)
+
+Coding Environment
+------
+The most convenient environment for you to code in might be [Google Colab](https://colab.research.google.com/), for which you probably need a gmail account. It does not hurt to look at the 2-minute intro video.
+If you prefer a real IDE, I would recommend [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [PyCharm](https://www.jetbrains.com/pycharm/download/). (I will not be able to help much with the latter though)
+
+
+
+Lecturer
+=====
+
+
+[Prof. Dr. Markus
+Loecher](http://www.hwr-berlin.de/fachbereich-wirtschaftswissenschaften/kontakt/personen/kontakt-info/2184/ "ML official university link")
+
+Professor for Mathematics and Statistics
+
+[Berlin School of Economics and Law](http://www.hwr-berlin.de "BSEL Homepage")
+
+[linkedin](https://www.linkedin.com/in/loecher/)
+
+[researchgate](https://www.researchgate.net/profile/Markus-Loecher)
+
+[my blog](https://markusloecher.github.io/ "blog")
+
+
