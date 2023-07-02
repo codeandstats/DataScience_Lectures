@@ -250,9 +250,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#permutation-2-sample-test" id="toc-permutation-2-sample-test" class="nav-link active" data-scroll-target="#permutation-2-sample-test">Permutation 2-sample test</a></li>
-  <li><a href="#sample-t-test" id="toc-sample-t-test" class="nav-link" data-scroll-target="#sample-t-test">2-sample t test</a>
+  <li><a href="#sample-t-test" id="toc-sample-t-test" class="nav-link" data-scroll-target="#sample-t-test">2-sample t test</a></li>
+  <li><a href="#random-walks" id="toc-random-walks" class="nav-link" data-scroll-target="#random-walks">Random Walks</a>
   <ul class="collapse">
+  <li><a href="#simulating-many-random-walks-at-once" id="toc-simulating-many-random-walks-at-once" class="nav-link" data-scroll-target="#simulating-many-random-walks-at-once">Simulating Many Random Walks at Once</a></li>
   <li><a href="#the-sqrtn-law-again" id="toc-the-sqrtn-law-again" class="nav-link" data-scroll-target="#the-sqrtn-law-again">The <span class="math inline">\(\sqrt{n}\)</span> law again !</a></li>
+  </ul></li>
+  <li><a href="#tasks" id="toc-tasks" class="nav-link" data-scroll-target="#tasks">Tasks</a>
+  <ul class="collapse">
+  <li><a href="#binomial-probability-distribution" id="toc-binomial-probability-distribution" class="nav-link" data-scroll-target="#binomial-probability-distribution">Binomial Probability Distribution</a></li>
   <li><a href="#ab-testing" id="toc-ab-testing" class="nav-link" data-scroll-target="#ab-testing">A/B Testing</a></li>
   </ul></li>
   </ul>
@@ -286,14 +292,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ol>
 <p><strong>Importing Our Functions</strong></p>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>run .<span class="op">/</span>ourFunctions.py</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>precision <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>'%.3f'</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %load ../ourFunctions.py</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> matplt</span>
@@ -446,10 +452,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>PclassSurv <span class="op">=</span> titanic.groupby([<span class="st">'pclass'</span>, <span class="st">'survived'</span>])</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>PclassSurv.size()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>pclass  survived
 1       0            80
         1           136
@@ -460,9 +466,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 dtype: int64</code></pre>
 </div>
 </div>
-<div class="cell" data-scrolled="true" data-execution_count="6">
+<div class="cell" data-scrolled="true" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(titanic.pclass, titanic.survived,margins<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="5">
 
 <div>
 
@@ -511,10 +517,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>WomenOnly <span class="op">=</span> titanic[titanic[<span class="st">"sex"</span>]<span class="op">==</span><span class="st">"female"</span>]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pd.crosstab(WomenOnly.pclass, WomenOnly.survived,margins<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="6">
 
 <div>
 
@@ -584,7 +590,7 @@ dtype: int64</code></pre>
 <p>Of course there is an equivalent fully parametric 2-sample test, the t-test.</p>
 <p>We first read in the <a href="https://greenteapress.com/thinkstats2/html/thinkstats2002.html#sec7">The National Survey of Family Growth</a> data from the <a href="https://greenteapress.com/wp/think-stats-2e/">think stats book</a>.</p>
 <p>Look at section 1.7 for a description of the variables.</p>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#preg = pd.read_hdf('data/pregNSFG.h5', 'df')</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>preg <span class="op">=</span> pd.read_csv(<span class="st">'data/pregNSFG.csv.gz'</span>, compression<span class="op">=</span><span class="st">'gzip'</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#only look at live births</span></span>
@@ -596,143 +602,172 @@ dtype: int64</code></pre>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#and all others</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>others <span class="op">=</span> live[live.birthord <span class="op">!=</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="9">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tRes <span class="op">=</span> stats.ttest_ind(firsts.prglngth.values, others.prglngth.values)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pd.Series([tRes.pvalue,tRes.statistic], index <span class="op">=</span> [<span class="st">'p-value:'</span>, <span class="st">'test statistic:'</span>])</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>p-value:           0.167554
 test statistic:    1.380215
 dtype: float64</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="10">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ttest_ind often underestimates p for unequal variances:</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tRes <span class="op">=</span> stats.ttest_ind(firsts.prglngth.values, others.prglngth.values, equal_var <span class="op">=</span> <span class="va">False</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pd.Series([tRes.pvalue,tRes.statistic], index <span class="op">=</span> [<span class="st">'p-value:'</span>, <span class="st">'test statistic:'</span>])</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>p-value:           0.168528
 test statistic:    1.377059
 dtype: float64</code></pre>
 </div>
 </div>
-<hr>
 <p><strong>Can you reproduce the first p-value from the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html">test statistic</a> ?</strong></p>
-<table class="table">
-<colgroup>
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">## Random Walks</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">### Simulating Many Random Walks at Once</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">If your goal was to simulate many random walks, say 5,000 of them, you can generate all of the random walks with minor modifications to the above code. The numpy.random functions if passed a 2-tuple will generate a 2D array of draws, and we can compute the cumulative sum across the rows to compute all 5,000 random walks in one shot</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">::: {.cell execution_count=15}</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">::: {.cell execution_count=16}</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">::: {.cell-output .cell-output-display execution_count=16}</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">::: {.cell execution_count=17} ``` {.python .cell-code} nwalks = 5000 nsteps = 10000 steps = random.choice([-1,1], size=(nwalks, nsteps), p=(0.9,0.1)) # 0 or 1 #steps = np.where(draws &gt; 0, 1, 0) #steps = np.where(np.random.rand() &lt;= 0.1,1,-1)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">walks = steps.cumsum(1) ``` :::</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">::: {.cell execution_count=18}</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">::: {.cell-output .cell-output-display execution_count=18}</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">::: {.cell execution_count=16}</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">::: {.cell-output .cell-output-stdout}</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">::: {.cell execution_count=26} ``` {.python .cell-code} fig = plt.figure() ax = fig.add_subplot(1, 1, 1)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ax.plot(walks[1,:], ‘k’, label=‘one’, linewidth=0.25) ax.plot(walks[2,:], label=‘two’, linestyle =‘–’, linewidth=0.25) ax.plot(walks[3,:], label=‘three’, linestyle =‘–’, linewidth=0.25) ax.plot(walks[4,:], label=‘four’, linestyle =‘–’, linewidth=0.25) ax.grid()</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">#a very useless legend just because we can ax.legend(loc=‘best’); ```</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">::: {.cell-output .cell-output-display} <img src="DS_Lecture4_files/figure-html/cell-18-output-1.png" class="img-fluid"> ::: :::</td>
-</tr>
-</tbody>
-</table>
+<hr>
+</section>
+<section id="random-walks" class="level2">
+<h2 class="anchored" data-anchor-id="random-walks">Random Walks</h2>
+<p>An illustrative application of basic stochastic concepts in binary processes is the simulation of random walks. Let’s first consider a simple random walk starting at 0 with steps of 1 and -1 occurring with equal probability (<span class="math inline">\(p = 0.5\)</span>).</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nsteps <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>draws <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">2</span>, size<span class="op">=</span>nsteps)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> np.where(draws <span class="op">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>walk <span class="op">=</span> steps.cumsum() <span class="co"># random walk !</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()<span class="op">;</span> ax <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ax.plot(walk, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="DS_Lecture4_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Extra Credit</strong></p>
+<p>A more complicated statistic is the first crossing time, the step at which the random walk reaches a particular value. Here we might want to know how long it took the random walk to get at least 10 steps away from the origin 0 in either direction. np.abs(walk) &gt;= 10 gives us a boolean array indicating where the walk has reached or exceeded 10, but we want the index of the first 10 or -10. This can be computed using argmax, which returns the first index of the maximum value in the boolean array (True is the maximum value):</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(np.<span class="bu">abs</span>(walk) <span class="op">&gt;=</span> <span class="dv">10</span>).argmax()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>57</code></pre>
+</div>
+</div>
+<hr>
+<section id="simulating-many-random-walks-at-once" class="level3">
+<h3 class="anchored" data-anchor-id="simulating-many-random-walks-at-once">Simulating Many Random Walks at Once</h3>
+<p>If your goal was to simulate many random walks, say 5,000 of them, you can generate all of the random walks with minor modifications to the above code. The numpy.random functions if passed a 2-tuple will generate a 2D array of draws, and we can compute the cumulative sum across the rows to compute all 5,000 random walks in one shot</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>nwalks <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>nsteps <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>draws <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">2</span>, size<span class="op">=</span>(nwalks, nsteps)) <span class="co"># 0 or 1</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> np.where(draws <span class="op">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>walks <span class="op">=</span> steps.cumsum(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>walks.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>(5000, 10000)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>nwalks <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>nsteps <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> random.choice([<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>], size<span class="op">=</span>(nwalks, nsteps), p<span class="op">=</span>(<span class="fl">0.52</span>,<span class="fl">0.48</span>)) <span class="co"># 0 or 1</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#steps = np.where(draws &gt; 0, 1, 0)</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#steps = np.where(np.random.rand() &lt;= 0.1,1,-1)</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>walks <span class="op">=</span> steps.cumsum(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>walks.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>(5000, 10000)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compute stdevs at n= 100, 200, 400, 1600:</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n = 100:"</span>, <span class="bu">str</span>(np.std(walks[:,<span class="dv">99</span>])))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n = 200:"</span>, <span class="bu">str</span>(np.std(walks[:,<span class="dv">199</span>])))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n = 400:"</span>, <span class="bu">str</span>(np.std(walks[:,<span class="dv">399</span>])))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n = 1600:"</span>, <span class="bu">str</span>(np.std(walks[:,<span class="dv">1599</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>n = 100: 9.813276720851196
+n = 200: 13.944520449266085
+n = 400: 20.019379666712954
+n = 1600: 39.25214456510624</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>ax.plot(walks[<span class="dv">1</span>,:], <span class="st">'k'</span>, label<span class="op">=</span><span class="st">'one'</span>, linewidth<span class="op">=</span><span class="fl">0.25</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>ax.plot(walks[<span class="dv">2</span>,:], label<span class="op">=</span><span class="st">'two'</span>, linestyle <span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.25</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>ax.plot(walks[<span class="dv">3</span>,:],  label<span class="op">=</span><span class="st">'three'</span>, linestyle <span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.25</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>ax.plot(walks[<span class="dv">4</span>,:],  label<span class="op">=</span><span class="st">'four'</span>, linestyle <span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.25</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>ax.grid()</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#a very useless legend just because we can</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'best'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="DS_Lecture4_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<hr>
+</section>
 <section id="the-sqrtn-law-again" class="level3">
 <h3 class="anchored" data-anchor-id="the-sqrtn-law-again">The <span class="math inline">\(\sqrt{n}\)</span> law again !</h3>
 <p>Compute the variance and/or standard deviation at times <span class="math inline">\(1000, 4000, 9000\)</span>.</p>
-<div class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'std_1000:'</span>, np.std(walks[:,<span class="dv">1000</span>]))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'std_4000:'</span>, np.std(walks[:,<span class="dv">4000</span>]))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'std_9000:'</span>, np.std(walks[:,<span class="dv">9000</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'std_1000:'</span>, np.std(walks[:,<span class="dv">1000</span>]))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'std_4000:'</span>, np.std(walks[:,<span class="dv">4000</span>]))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'std_9000:'</span>, np.std(walks[:,<span class="dv">9000</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>std_1000: 31.985538009544253
-std_4000: 63.65415401998522
-std_9000: 95.417731496824</code></pre>
+<pre><code>std_1000: 18.920595808800524
+std_4000: 38.202094719530756
+std_9000: 55.862619130864246</code></pre>
 </div>
 </div>
 <p><strong>Extra Credit</strong></p>
 <p>Out of these walks, let’s compute the minimum crossing time to 30 or -30. This is slightly tricky because not all 5,000 of them reach 30. We can check this using the <em>any</em> method.</p>
 <p>We can then use this boolean array to select out the rows of walks that actually cross the absolute 30 level and call argmax across axis 1 to get the crossing times:</p>
-<div class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>hits30 <span class="op">=</span> (np.<span class="bu">abs</span>(walks) <span class="op">&gt;=</span> <span class="dv">30</span>).<span class="bu">any</span>(<span class="dv">1</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>hits30</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>hits30.<span class="bu">sum</span>() <span class="co"># Number that hit 30 or -30</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>crossing_times <span class="op">=</span> (np.<span class="bu">abs</span>(walks[hits30]) <span class="op">&gt;=</span> <span class="dv">30</span>).argmax(<span class="dv">1</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>crossing_times.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
-<pre><code>892.4928</code></pre>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hits30 <span class="op">=</span> (np.<span class="bu">abs</span>(walks) <span class="op">&gt;=</span> <span class="dv">30</span>).<span class="bu">any</span>(<span class="dv">1</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>hits30</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>hits30.<span class="bu">sum</span>() <span class="co"># Number that hit 30 or -30</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>crossing_times <span class="op">=</span> (np.<span class="bu">abs</span>(walks[hits30]) <span class="op">&gt;=</span> <span class="dv">30</span>).argmax(<span class="dv">1</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>crossing_times.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>36.620</code></pre>
 </div>
 </div>
-<table class="table">
-<colgroup>
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>## Tasks</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>### Binomial Probability Distribution</td>
-</tr>
-<tr class="even">
-<td>1. Explore the <em>binom</em> function from scipy.stats</td>
-</tr>
-<tr class="odd">
-<td>2. Size matters: insurance company A insures 100 cars, company B 400 cars. The probability of a car being stolen is 10%. Compute the probabilities that more than 15% of the respective fleets are stolen.</td>
-</tr>
-<tr class="even">
-<td>4. Faced with a mutliple choice test containing 20 question with 4 choices each you decide in desparation to just guess all answers. What is the probability that you will pass, i.e.&nbsp;get at least 10 correct answers?</td>
-</tr>
-<tr class="odd">
-<td>5. Think about nonparametric versions of the above answers</td>
-</tr>
-<tr class="even">
-<td>::: {.cell execution_count=29}</td>
-</tr>
-</tbody>
-</table>
+<hr>
+</section>
+</section>
+<section id="tasks" class="level2">
+<h2 class="anchored" data-anchor-id="tasks">Tasks</h2>
+<ol type="1">
+<li>Compute the stdev for multiples of 100 iterations and find a pattern</li>
+<li>Repeat for “biased” random walks, where <span class="math inline">\(p \neq 0.5\)</span>. Try <span class="math inline">\(p = 0.1\)</span> and <span class="math inline">\(p = 0.9\)</span></li>
+<li>Learn
+<ul>
+<li>the analytic formular for variance/stdev of coin flips</li>
+<li>the actual distribution (chap 3.4 in https://www.openintro.org/stat/)</li>
+<li>its approximation</li>
+</ul></li>
+<li>Complete the labeling of the two axis (with the help of https://codeandstats.shinyapps.io/binomialtails/) <img src="figures/BinomialTails.png" class="img-fluid" alt="BinomialTails"></li>
+</ol>
+<hr>
+<section id="binomial-probability-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-probability-distribution">Binomial Probability Distribution</h3>
+<ol type="1">
+<li><p>Explore the <em>binom</em> function from scipy.stats</p></li>
+<li><p>Size matters: insurance company A insures 100 cars, company B 400 cars. The probability of a car being stolen is 10%. Compute the probabilities that more than 15% of the respective fleets are stolen.</p></li>
+<li><p>Faced with a mutliple choice test containing 20 question with 4 choices each you decide in desparation to just guess all answers. What is the probability that you will pass, i.e.&nbsp;get at least 10 correct answers?</p></li>
+<li><p>Think about nonparametric versions of the above answers</p></li>
+</ol>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a> <span class="im">from</span> scipy.stats <span class="im">import</span> binom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
 </section>
 <section id="ab-testing" class="level3">
 <h3 class="anchored" data-anchor-id="ab-testing">A/B Testing</h3>
@@ -740,40 +775,40 @@ std_9000: 95.417731496824</code></pre>
 <li>Perform a permutation test on the DataCamp example:</li>
 </ol>
 <div>
-<p><img src="../figures/DC_ABtest.png" width="400"></p>
+<p><img src="figures/DC_ABtest.png" width="400"></p>
 </div>
 <hr>
 <p><strong>What does A/B testing have to do with random walks?</strong></p>
-<div class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct arrays of data: campaigns A and B</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>clickthroughA <span class="op">=</span> np.array([<span class="va">True</span>] <span class="op">*</span> <span class="dv">45</span> <span class="op">+</span> [<span class="va">False</span>] <span class="op">*</span> (<span class="dv">500</span><span class="op">-</span><span class="dv">45</span>))</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>clickthroughB <span class="op">=</span> np.array([<span class="va">True</span>] <span class="op">*</span> <span class="dv">67</span> <span class="op">+</span> [<span class="va">False</span>] <span class="op">*</span> (<span class="dv">500</span><span class="op">-</span><span class="dv">67</span>))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>obsDiff <span class="op">=</span> np.mean(clickthroughB)<span class="op">-</span>np.mean(clickthroughA)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Acquire permutation samples: perm_replicates</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>perm_replicates <span class="op">=</span> draw_perm_reps(clickthroughB, clickthroughA, diff_of_means, <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct arrays of data: campaigns A and B</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>clickthroughA <span class="op">=</span> np.array([<span class="va">True</span>] <span class="op">*</span> <span class="dv">45</span> <span class="op">+</span> [<span class="va">False</span>] <span class="op">*</span> (<span class="dv">500</span><span class="op">-</span><span class="dv">45</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>clickthroughB <span class="op">=</span> np.array([<span class="va">True</span>] <span class="op">*</span> <span class="dv">67</span> <span class="op">+</span> [<span class="va">False</span>] <span class="op">*</span> (<span class="dv">500</span><span class="op">-</span><span class="dv">67</span>))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>obsDiff <span class="op">=</span> np.mean(clickthroughB)<span class="op">-</span>np.mean(clickthroughA)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Acquire permutation samples: perm_replicates</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>perm_replicates <span class="op">=</span> draw_perm_reps(clickthroughB, clickthroughA, diff_of_means, <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#p-value:</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>np.mean(perm_replicates <span class="op">&gt;=</span> obsDiff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
-<pre><code>0.0185</code></pre>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#p-value:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>np.mean(perm_replicates <span class="op">&gt;=</span> obsDiff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>0.016</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct arrays of data: campaigns A and B</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>clickthroughA <span class="op">=</span> np.array([<span class="va">True</span>] <span class="op">*</span> <span class="dv">45</span> <span class="op">+</span> [<span class="va">False</span>] <span class="op">*</span> (<span class="dv">500</span><span class="op">-</span><span class="dv">45</span>))</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>clickthroughB <span class="op">=</span> np.array([<span class="va">True</span>] <span class="op">*</span> <span class="dv">67</span> <span class="op">+</span> [<span class="va">False</span>] <span class="op">*</span> (<span class="dv">500</span><span class="op">-</span><span class="dv">67</span>))</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>obsDiff <span class="op">=</span> np.mean(clickthroughB)<span class="op">-</span>np.mean(clickthroughA)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Acquire permutation samples: perm_replicates</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>perm_replicates <span class="op">=</span> draw_perm_reps(clickthroughB, clickthroughA, diff_of_means, <span class="dv">10000</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.hist(perm_replicates)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.vlines(obsDiff,<span class="dv">0</span>,<span class="dv">3000</span>,colors<span class="op">=</span><span class="st">"red"</span>)</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>plt.vlines(<span class="op">-</span>obsDiff,<span class="dv">0</span>,<span class="dv">3000</span>, colors<span class="op">=</span><span class="st">"red"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct arrays of data: campaigns A and B</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>clickthroughA <span class="op">=</span> np.array([<span class="va">True</span>] <span class="op">*</span> <span class="dv">45</span> <span class="op">+</span> [<span class="va">False</span>] <span class="op">*</span> (<span class="dv">500</span><span class="op">-</span><span class="dv">45</span>))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>clickthroughB <span class="op">=</span> np.array([<span class="va">True</span>] <span class="op">*</span> <span class="dv">67</span> <span class="op">+</span> [<span class="va">False</span>] <span class="op">*</span> (<span class="dv">500</span><span class="op">-</span><span class="dv">67</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>obsDiff <span class="op">=</span> np.mean(clickthroughB)<span class="op">-</span>np.mean(clickthroughA)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Acquire permutation samples: perm_replicates</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>perm_replicates <span class="op">=</span> draw_perm_reps(clickthroughB, clickthroughA, diff_of_means, <span class="dv">10000</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>plt.hist(perm_replicates)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>plt.vlines(obsDiff,<span class="dv">0</span>,<span class="dv">3000</span>,colors<span class="op">=</span><span class="st">"red"</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>plt.vlines(<span class="op">-</span>obsDiff,<span class="dv">0</span>,<span class="dv">3000</span>, colors<span class="op">=</span><span class="st">"red"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="DS_Lecture4_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
 </div>
